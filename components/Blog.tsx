@@ -1,32 +1,16 @@
+import Link from "next/link";
 import Reveal from "@/components/Reveal";
+import { posts } from "@/lib/blog";
 
-const posts = [
-  {
-    tag: "Tax Planning",
-    title: "What the 2025 tax code changes mean for your small business",
-    preview:
-      "Three provisions buried in the recent omnibus bill could meaningfully affect how you structure deductions this year.",
-    date: "Jan 15, 2025",
-  },
-  {
-    tag: "Entity Structure",
-    title: "Should you convert your sole proprietorship to an S-Corp?",
-    preview:
-      "If you're clearing more than $50k in net profit, the answer is probably yes — but the timing and method matter.",
-    date: "Mar 4, 2025",
-  },
-  {
-    tag: "Bookkeeping",
-    title: "Five bookkeeping mistakes Chicago restaurant owners make (and how to fix them)",
-    preview:
-      "Commingled accounts, late reconciliation, and ignored POS reports top the list. Here's the practical fix for each.",
-    date: "Apr 22, 2025",
-  },
-];
+interface Props {
+  limit?: number;
+}
 
-export default function Blog() {
+export default function Blog({ limit }: Props) {
+  const displayed = limit ? posts.slice(0, limit) : posts;
+
   return (
-    <section id="blog" className="bg-surface py-28 border-t border-border">
+    <section className="bg-surface py-28 border-t border-border">
       <div className="max-w-6xl mx-auto px-6">
         <Reveal>
           <p className="font-sans text-[0.68rem] tracking-[0.22em] uppercase text-gold font-medium mb-4">
@@ -34,25 +18,33 @@ export default function Blog() {
           </p>
         </Reveal>
         <Reveal delay={0.06}>
-          <h2
-            className="font-serif font-light text-navy leading-tight mb-16"
-            style={{ fontSize: "clamp(2rem, 4vw, 3.2rem)" }}
-          >
-            Practical guidance, no jargon.
-          </h2>
+          <div className="flex items-end justify-between mb-16">
+            <h2
+              className="font-serif font-light text-navy leading-tight"
+              style={{ fontSize: "clamp(2rem, 4vw, 3.2rem)" }}
+            >
+              Practical guidance, no jargon.
+            </h2>
+            {limit && (
+              <Link
+                href="/blog"
+                className="hidden md:block font-sans text-[0.78rem] font-medium text-gold hover:text-navy transition-colors duration-150 flex-shrink-0 ml-8"
+              >
+                Read all articles →
+              </Link>
+            )}
+          </div>
         </Reveal>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {posts.map((post, i) => (
-            <Reveal key={post.title} delay={0.08 + i * 0.1}>
+          {displayed.map((post, i) => (
+            <Reveal key={post.slug} delay={0.08 + i * 0.1}>
               <article className="bg-white border border-border rounded-sm p-7 flex flex-col h-full hover:shadow-sm transition-shadow duration-200">
                 <div className="flex items-center justify-between mb-5">
                   <span className="font-sans text-[0.62rem] tracking-[0.16em] uppercase text-gold font-medium bg-gold/10 px-2.5 py-1 rounded-sm">
                     {post.tag}
                   </span>
-                  <span className="font-sans text-[0.7rem] text-navy/35">
-                    {post.date}
-                  </span>
+                  <span className="font-sans text-[0.7rem] text-navy/35">{post.date}</span>
                 </div>
                 <h3 className="font-serif font-semibold text-navy text-[1rem] leading-snug mb-3 flex-1">
                   {post.title}
@@ -60,16 +52,24 @@ export default function Blog() {
                 <p className="font-sans text-[0.82rem] text-navy/50 leading-relaxed mb-6">
                   {post.preview}
                 </p>
-                <a
-                  href="#contact"
+                <Link
+                  href={`/blog/${post.slug}`}
                   className="font-sans text-[0.76rem] font-medium text-gold hover:text-navy transition-colors duration-150 mt-auto"
                 >
                   Read more →
-                </a>
+                </Link>
               </article>
             </Reveal>
           ))}
         </div>
+
+        {limit && (
+          <div className="mt-10 md:hidden text-center">
+            <Link href="/blog" className="font-sans text-[0.78rem] font-medium text-gold hover:text-navy transition-colors">
+              Read all articles →
+            </Link>
+          </div>
+        )}
       </div>
     </section>
   );

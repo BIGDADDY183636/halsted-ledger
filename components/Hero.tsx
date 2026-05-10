@@ -1,3 +1,4 @@
+import Link from "next/link";
 import CountUp from "@/components/CountUp";
 
 const stats = [
@@ -33,18 +34,18 @@ export default function Hero() {
             </p>
 
             <div className="flex flex-wrap gap-4 mt-10">
-              <a
-                href="#contact"
+              <Link
+                href="/contact"
                 className="font-sans text-[0.82rem] font-medium bg-navy text-white px-7 py-3.5 rounded-sm hover:bg-navy-mid transition-colors duration-200"
               >
                 Book a consultation →
-              </a>
-              <a
-                href="#services"
+              </Link>
+              <Link
+                href="/services"
                 className="font-sans text-[0.82rem] text-navy/55 hover:text-navy border border-border px-7 py-3.5 rounded-sm transition-colors duration-200"
               >
                 Our services
-              </a>
+              </Link>
             </div>
 
             {/* Stats */}
@@ -75,82 +76,26 @@ export default function Hero() {
                 className="w-full h-auto"
                 aria-hidden="true"
               >
-                {/* Grid lines */}
                 {[280, 210, 140, 70].map((y) => (
-                  <line
-                    key={y}
-                    x1="40"
-                    y1={y}
-                    x2="420"
-                    y2={y}
-                    stroke="#e2e8f0"
-                    strokeWidth="1"
-                  />
+                  <line key={y} x1="40" y1={y} x2="420" y2={y} stroke="#e2e8f0" strokeWidth="1" />
                 ))}
-                {/* Axis */}
                 <line x1="40" y1="280" x2="420" y2="280" stroke="#e2e8f0" strokeWidth="1.5" />
-
-                {/* Bars */}
                 {[
-                  { x: 65,  h: 80,  y: 200 },
-                  { x: 130, h: 120, y: 160 },
-                  { x: 195, h: 100, y: 180 },
-                  { x: 260, h: 155, y: 125 },
-                  { x: 325, h: 130, y: 150 },
-                  { x: 390, h: 190, y: 90  },
+                  { x: 65, h: 80, y: 200 }, { x: 130, h: 120, y: 160 },
+                  { x: 195, h: 100, y: 180 }, { x: 260, h: 155, y: 125 },
+                  { x: 325, h: 130, y: 150 }, { x: 390, h: 190, y: 90 },
                 ].map(({ x, h, y }) => (
-                  <rect
-                    key={x}
-                    x={x - 20}
-                    y={y}
-                    width="40"
-                    height={h}
-                    fill="#2a4a6b"
-                    opacity="0.12"
-                    rx="2"
-                  />
+                  <rect key={x} x={x - 20} y={y} width="40" height={h} fill="#2a4a6b" opacity="0.12" rx="2" />
                 ))}
-
-                {/* Trend line (gold) */}
-                <path
-                  d="M45 260 C120 240 200 200 260 160 C320 120 370 100 420 70"
-                  stroke="#c9a96e"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  fill="none"
-                />
-                {/* Trend dots */}
-                {[
-                  [45,  260],
-                  [260, 160],
-                  [420, 70],
-                ].map(([cx, cy]) => (
-                  <circle
-                    key={`${cx}-${cy}`}
-                    cx={cx}
-                    cy={cy}
-                    r="4"
-                    fill="#c9a96e"
-                  />
+                <path d="M45 260 C120 240 200 200 260 160 C320 120 370 100 420 70" stroke="#c9a96e" strokeWidth="2.5" strokeLinecap="round" fill="none" />
+                {[[45, 260], [260, 160], [420, 70]].map(([cx, cy]) => (
+                  <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r="4" fill="#c9a96e" />
                 ))}
-
-                {/* Callout card */}
                 <rect x="290" y="40" width="120" height="50" rx="4" fill="white" stroke="#e2e8f0" strokeWidth="1.5" />
                 <text x="350" y="62" textAnchor="middle" fontFamily="Georgia,serif" fontSize="13" fontWeight="600" fill="#c9a96e">+24%</text>
                 <text x="350" y="78" textAnchor="middle" fontFamily="system-ui,sans-serif" fontSize="9" fill="#0f1c2e" opacity="0.5">avg. tax savings</text>
-
-                {/* Y-axis labels */}
                 {["$0", "$50k", "$100k", "$150k"].map((label, i) => (
-                  <text
-                    key={label}
-                    x="32"
-                    y={284 - i * 70}
-                    textAnchor="end"
-                    fontFamily="system-ui,sans-serif"
-                    fontSize="9"
-                    fill="#0f1c2e"
-                    opacity="0.35"
-                  >
+                  <text key={label} x="32" y={284 - i * 70} textAnchor="end" fontFamily="system-ui,sans-serif" fontSize="9" fill="#0f1c2e" opacity="0.35">
                     {label}
                   </text>
                 ))}

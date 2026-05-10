@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Source_Serif_4, Inter } from "next/font/google";
+import Nav from "@/components/Nav";
+import Footer from "@/components/Footer";
 import "./globals.css";
 
 const sourceSerif = Source_Serif_4({
@@ -35,7 +37,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${sourceSerif.variable} ${inter.variable}`}>
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <Nav />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }
